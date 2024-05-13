@@ -1,13 +1,11 @@
 package com.example.appyaganaste.ui.bankList
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.appyaganaste.repo.ApiService
 import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.repo.ApiService
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel : ViewModel() {
