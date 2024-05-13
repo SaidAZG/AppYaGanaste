@@ -9,7 +9,7 @@ import com.example.appyaganaste.repo.ApiService
 import com.example.appyaganaste.data.Bank
 import kotlinx.coroutines.launch
 
-class BankViewModel : ViewModel() {
+class MainActivityViewModel : ViewModel() {
     var bankListResponse : List<Bank> by mutableStateOf(listOf())
     var errorMsg : String by mutableStateOf("")
 

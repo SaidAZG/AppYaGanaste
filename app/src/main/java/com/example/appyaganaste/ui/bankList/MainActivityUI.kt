@@ -1,77 +1,47 @@
 package com.example.appyaganaste.ui.bankList
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.Modifier
-import androidx.compose.material3.Surface
+import SearchBar
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
 import com.example.appyaganaste.data.Bank
-import com.example.appyaganaste.ui.theme.AppYaGanasteTheme
 
 @Composable
-fun BankListItem(
-    bank: Bank,
-    onClick: () -> Unit){
-    Card(
-        Modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-            .height(100.dp),
-        shape = RoundedCornerShape(8.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
-    ) {
-        Surface {
-            Row(
-                Modifier
-                    .padding(4.dp)
-                    .fillMaxSize()
-                    .clickable{onClick()}
-            ) {
-                Image(
-                    painter = rememberImagePainter(
-                        data = bank.url,
-                        builder = {
-                            crossfade(true)
-                            transformations(CircleCropTransformation())
-                        }
-                    ),
-                    contentDescription = bank.description,
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(0.2f),
-                    contentScale = ContentScale.Fit
-                )
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxHeight()
-                        .weight(0.8f)
-                ){
-                    Text(text = bank.bankName, style = MaterialTheme.typography.titleLarge)
-                    Text(text = bank.description, style = MaterialTheme.typography.bodyMedium)
+fun MainScreen(bankList: List<Bank>, onClick: (Bank) -> Unit) {
+    var searchResult by remember { mutableStateOf("") }
+    var searchText by remember { mutableStateOf("") }
+    var filteredList by remember { mutableStateOf(bankList) }
+
+    Column {
+        SearchBar(modifier = Modifier.fillMaxWidth()) { query ->
+            searchText = query
+            searchResult = "Realizando búsqueda: $query"
+            filteredList = if (query.isNotEmpty()) {
+                bankList.filter { it.bankName.contains(query, ignoreCase = true) }
+            } else {
+                bankList
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = searchResult)
+
+        LazyColumn(Modifier.weight(1f)) {
+            items(items = filteredList.ifEmpty { bankList }) { bank ->
+                BankListItem(bank = bank){
+                    onClick(bank)
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    AppYaGanasteTheme {
-        val bank = Bank("Banco internacional",0,"","Nombre del Banco")
-        BankListItem(bank = bank, onClick = {})
     }
 }
