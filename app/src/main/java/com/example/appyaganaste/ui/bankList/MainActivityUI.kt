@@ -1,6 +1,7 @@
 package com.example.appyaganaste.ui.bankList
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -19,7 +20,9 @@ import com.example.appyaganaste.data.Bank
 import com.example.appyaganaste.ui.theme.AppYaGanasteTheme
 
 @Composable
-fun BankListItem(bank: Bank){
+fun BankListItem(
+    bank: Bank,
+    onClick: () -> Unit){
     Card(
         Modifier
             .padding(16.dp)
@@ -33,6 +36,7 @@ fun BankListItem(bank: Bank){
                 Modifier
                     .padding(4.dp)
                     .fillMaxSize()
+                    .clickable{onClick()}
             ) {
                 Image(
                     painter = rememberImagePainter(
@@ -68,6 +72,6 @@ fun BankListItem(bank: Bank){
 fun DefaultPreview() {
     AppYaGanasteTheme {
         val bank = Bank("Banco internacional",0,"","Nombre del Banco")
-        BankListItem(bank = bank)
+        BankListItem(bank = bank, onClick = {})
     }
 }

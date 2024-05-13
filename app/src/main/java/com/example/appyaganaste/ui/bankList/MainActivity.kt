@@ -1,6 +1,7 @@
 package com.example.appyaganaste.ui.bankList
 
 import SearchBar
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,7 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.ui.bankDetail.BankDetailActivity
 import com.example.appyaganaste.ui.theme.AppYaGanasteTheme
+import java.io.Serializable
 
 class MainActivity : ComponentActivity() {
     private val viewModel: BankViewModel by viewModels()
@@ -33,18 +36,22 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, true)
 
         setContent {
+            val intent = Intent(this@MainActivity, BankDetailActivity::class.java)
+
             AppYaGanasteTheme {
                 Surface(color = MaterialTheme.colorScheme.background){
-                    MainScreen(bankList = viewModel.bankListResponse)
+                    MainScreen(bankList = viewModel.bankListResponse, onClick = {
+                        intent.putExtra("bank", it as Serializable)
+                        startActivity(intent)
+                    })
                     viewModel.getBanks()
                 }
             }
         }
     }
 }
-
 @Composable
-fun MainScreen(bankList: List<Bank>) {
+fun MainScreen(bankList: List<Bank>, onClick: (Bank) -> Unit) {
     var searchResult by remember { mutableStateOf("") }
     var searchText by remember { mutableStateOf("") }
     var filteredList by remember { mutableStateOf(bankList) }
@@ -64,7 +71,9 @@ fun MainScreen(bankList: List<Bank>) {
 
         LazyColumn(Modifier.weight(1f)) {
             items(items = filteredList.ifEmpty { bankList }) { bank ->
-                BankListItem(bank = bank)
+                BankListItem(bank = bank){
+                    onClick(bank)
+                }
             }
         }
     }
