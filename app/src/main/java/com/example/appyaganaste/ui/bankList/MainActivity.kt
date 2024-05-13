@@ -2,6 +2,7 @@ package com.example.appyaganaste.ui.bankList
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -39,5 +40,14 @@ class MainActivity : ComponentActivity() {
             }
         }
         viewModel.getBanks()
+
+        notifyFavoriteChanges()
+    }
+
+    private fun notifyFavoriteChanges() {
+        viewModel.updateFavorite.observe(this) { (bankName, isAddedToFavorites) ->
+            val notification = "$bankName ${if (isAddedToFavorites) "added to" else "removed from"} favorites"
+            Toast.makeText(this@MainActivity, notification, Toast.LENGTH_SHORT).show()
+        }
     }
 }
