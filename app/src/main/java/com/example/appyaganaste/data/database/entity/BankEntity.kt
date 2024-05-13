@@ -3,6 +3,7 @@ package com.example.appyaganaste.data.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.appyaganaste.data.Bank
 
 @Entity(tableName = "favorite_banks")
 data class BankEntity(
@@ -10,4 +11,6 @@ data class BankEntity(
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "age") val age : Int,
     @ColumnInfo(name = "url") val url : String
-)
+){
+    fun toBank() : Bank = Bank(name, age, description, url,true)
+}

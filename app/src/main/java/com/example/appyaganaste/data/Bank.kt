@@ -1,5 +1,6 @@
 package com.example.appyaganaste.data
 
+import com.example.appyaganaste.data.database.entity.BankEntity
 import java.io.Serializable
 
 data class Bank(
@@ -8,4 +9,6 @@ data class Bank(
     val url: String,
     val bankName: String,
     var isFavorite: Boolean = false
-) : Serializable
+) : Serializable {
+    fun toBankEntity() = BankEntity(bankName, description, age, url)
+}
