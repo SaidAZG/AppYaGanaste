@@ -1,18 +1,27 @@
 package com.example.appyaganaste.ui.bankList
 
+import SearchBar
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import com.example.appyaganaste.data.Bank
 import com.example.appyaganaste.ui.theme.AppYaGanasteTheme
 
@@ -21,12 +30,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        WindowCompat.setDecorFitsSystemWindows(window, true)
 
         setContent {
             AppYaGanasteTheme {
                 Surface(color = MaterialTheme.colorScheme.background){
-                    BankList(bankList = viewModel.bankListResponse)
+                    MainScreen(bankList = viewModel.bankListResponse)
                     viewModel.getBanks()
                 }
             }
@@ -35,19 +44,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BankList(bankList: List<Bank>) {
-    LazyColumn(Modifier.fillMaxSize()) {
-        itemsIndexed(items = bankList){ index, bank ->
-            BankListItem(bank = bank)
-        }
-    }
-}
+fun MainScreen(bankList: List<Bank>) {
+    var searchResult by remember { mutableStateOf("") }
+    var searchText by remember { mutableStateOf("") }
+    var filteredList by remember { mutableStateOf(bankList) }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    AppYaGanasteTheme {
-        val bank = Bank("Banco internacional",0,"","Nombre del Banco")
-        BankListItem(bank = bank)
+    Column {
+        SearchBar(modifier = Modifier.fillMaxWidth()) { query ->
+            searchText = query
+            searchResult = "Realizando búsqueda: $query"
+            filteredList = if (query.isNotEmpty()) {
+                bankList.filter { it.bankName.contains(query, ignoreCase = true) }
+            } else {
+                bankList
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = searchResult)
+
+        LazyColumn(Modifier.weight(1f)) {
+            items(items = filteredList.ifEmpty { bankList }) { bank ->
+                BankListItem(bank = bank)
+            }
+        }
     }
 }

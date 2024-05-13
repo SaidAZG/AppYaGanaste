@@ -11,10 +11,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.ui.theme.AppYaGanasteTheme
 
 @Composable
 fun BankListItem(bank: Bank){
@@ -58,5 +60,14 @@ fun BankListItem(bank: Bank){
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    AppYaGanasteTheme {
+        val bank = Bank("Banco internacional",0,"","Nombre del Banco")
+        BankListItem(bank = bank)
     }
 }
