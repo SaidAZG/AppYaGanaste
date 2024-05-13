@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.appyaganaste.data.Bank
 
 @Composable
-fun MainScreen(bankList: List<Bank>, onClick: (Bank) -> Unit) {
+fun MainScreen(bankList: List<Bank>, onClick: (Bank) -> Unit, onFavoriteClick: (Bank) -> Unit) {
     var searchResult by remember { mutableStateOf("") }
     var searchText by remember { mutableStateOf("") }
     var filteredList by remember { mutableStateOf(bankList) }
@@ -38,9 +38,11 @@ fun MainScreen(bankList: List<Bank>, onClick: (Bank) -> Unit) {
 
         LazyColumn(Modifier.weight(1f)) {
             items(items = filteredList.ifEmpty { bankList }) { bank ->
-                BankListItem(bank = bank){
+                BankListItem(bank = bank, isFavorite = bank.isFavorite, onFavoriteClicked = {
+                    onFavoriteClick(bank)
+                }, onClick = {
                     onClick(bank)
-                }
+                })
             }
         }
     }
