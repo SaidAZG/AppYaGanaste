@@ -1,9 +1,9 @@
-package com.example.appyaganaste.data.database.entity
+package com.example.appyaganaste.data.local.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.domain.model.Bank
 
 @Entity(tableName = "favorite_banks")
 data class BankEntity(

@@ -3,7 +3,7 @@ package com.example.appyaganaste.ui.bankDetail
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.domain.model.Bank
 import com.example.appyaganaste.ui.theme.AppYaGanasteTheme
 
 class BankDetailActivity : ComponentActivity() {

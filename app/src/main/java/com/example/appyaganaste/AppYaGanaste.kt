@@ -2,7 +2,7 @@ package com.example.appyaganaste
 
 import android.app.Application
 import androidx.room.Room
-import com.example.appyaganaste.data.database.AppDatabase
+import com.example.appyaganaste.data.local.database.AppDatabase
 import java.util.concurrent.Executors
 
 class AppYaGanaste : Application() {

@@ -1,6 +1,6 @@
-package com.example.appyaganaste.data
+package com.example.appyaganaste.domain.model
 
-import com.example.appyaganaste.data.database.entity.BankEntity
+import com.example.appyaganaste.data.local.database.entity.BankEntity
 import java.io.Serializable
 
 data class Bank(

@@ -15,7 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.domain.model.Bank
 
 @Composable
 fun MainScreen(bankList: List<Bank>, onClick: (Bank) -> Unit, onFavoriteClick: (Bank) -> Unit) {

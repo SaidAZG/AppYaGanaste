@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
-import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.domain.model.Bank
 import com.example.appyaganaste.ui.theme.AppYaGanasteTheme
 
 @Composable

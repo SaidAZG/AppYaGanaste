@@ -1,11 +1,11 @@
-package com.example.appyaganaste.data.database.dao
+package com.example.appyaganaste.data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.appyaganaste.data.database.entity.BankEntity
+import com.example.appyaganaste.data.local.database.entity.BankEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

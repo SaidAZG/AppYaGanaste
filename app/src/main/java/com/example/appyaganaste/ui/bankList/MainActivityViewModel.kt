@@ -6,9 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appyaganaste.AppYaGanaste
-import com.example.appyaganaste.data.Bank
-import com.example.appyaganaste.data.database.entity.BankEntity
-import com.example.appyaganaste.repo.ApiService
+import com.example.appyaganaste.data.remote.ApiService
+import com.example.appyaganaste.domain.model.Bank
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 

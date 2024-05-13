@@ -1,6 +1,6 @@
-package com.example.appyaganaste.repo
+package com.example.appyaganaste.data.remote
 
-import com.example.appyaganaste.data.Bank
+import com.example.appyaganaste.domain.model.Bank
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
